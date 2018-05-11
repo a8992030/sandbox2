@@ -1,0 +1,60 @@
+host:
+  os: MACOS
+  network_intf: vnic0
+  # The %IP will get from network_intf
+
+container:
+  name: SBX_%DATE
+  # Usage: %DATE will represent 'date'
+
+  #port-list:
+  # Usage:   hostPort:containerPort | containerPort
+  # Explain: Both hostPort and containerPort can be specified as a
+  #          range of ports. When specifying ranges for both, the
+  #          number of container ports in the range must match the
+  #          number of host ports in the range, for example:
+  #          port-list:5/1
+  #          -22:22
+  #          -1234-1236:1234-1236/tcp
+
+  volume-list:
+    - "/tmp/.X11-unix"
+    - "%HOME/JetDrive330/Companies/Cavium:/root"
+  # Usage: [host-src:]container-dest[:<options>]: Bind mount a volume.
+  # The comma-delimited `options` are [rw|ro], [z|Z],
+  # [[r]shared|[r]slave|[r]private], and [nocopy].
+  # The 'host-src' is an absolute path or a name value.
+  #
+  # If neither 'rw' or 'ro' is specified then the volume is mounted in
+  # read-write mode.
+  #
+  # The `nocopy` modes is used to disable automatic copying requested volume
+  # path in the container to the volume storage location.
+  # For named volumes, `copy` is the default mode. Copy modes are not supported
+  # for bind-mounted volumes.
+  # %HOME will represent $HOME
+
+  pseudo-tty: true
+  # true: -t
+
+  daemon: true
+  # true: -d
+
+  keep-stdin: true
+  # true: -i
+  # Keep STDIN open even if not attached
+
+  privileged: true
+  # true: --privileged
+
+  environment-list:
+    - "DISPLAY=%IP:0"
+  # Usage: It will use "-e" in docker run.
+  # -e: set any environment variable in the container by using one or more -e
+  # %IP will represent IP Address
+
+  hostname: "%HOSTNAME-SB"
+  # The hostname in container.
+  # %HOSTNAME will represent HOSTNAME of docker host
+
+  cmd: "bash"
