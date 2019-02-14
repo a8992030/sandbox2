@@ -19,7 +19,7 @@ container:
 
   volume-list:
     - "/tmp/.X11-unix"
-    - "%HOME/JetDrive330/Companies/Cavium:/root"
+    - "%HOME/Companies/Marvell:/root"
   # Usage: [host-src:]container-dest[:<options>]: Bind mount a volume.
   # The comma-delimited `options` are [rw|ro], [z|Z],
   # [[r]shared|[r]slave|[r]private], and [nocopy].
