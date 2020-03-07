@@ -42,13 +42,13 @@ def replace_home(cconfig: ContainerConfig, value: str) -> str:
 
 def replace_ip(cconfig: ContainerConfig, value: str) -> str:
     # print(replace_ip.__name__)
-    # 18 is AF_LINK, 2 is AF_INET, 30 is AF_INET6
-    ip = netifaces.ifaddresses(cconfig.host.network_intf)[2][0]['addr']
+    host_os = HostOS.factory(cconfig)
+    ip = host_os.get_ip(cconfig)
     return value.replace('%IP', ip, 1)
 
 
 def replace_hostname(cconfig:ContainerConfig, value: str) -> str:
-    return value.replace('%HOSTNAME', socket.gethostname(), 1)
+    return value.replace('%HOSTNAME', socket.gethostname().split('.')[0], 1)
 
 SPECIAL_VAL = {'%DATE': replace_date,
                '%HOME': replace_home,

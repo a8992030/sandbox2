@@ -16,3 +16,7 @@ class HostOS(object):
     @abstractmethod
     def post_exec(self, cconfig) -> bool:
         pass
+
+    @abstractmethod
+    def get_ip(self, cconfig) -> str:
+        pass
