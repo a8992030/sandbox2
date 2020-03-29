@@ -198,6 +198,7 @@ def docker_list(cconfig: ContainerConfig) -> bool:
 def build_parameters(cconfig: ContainerConfig):
     cconfig.container.run_parameters = \
         cconfig.container.name + ' ' + \
+        cconfig.container.port_list + ' ' + \
         cconfig.container.volume_list + ' ' + \
         cconfig.container.pseudo_tty  + ' ' + \
         cconfig.container.daemon + ' ' + \
@@ -251,6 +252,7 @@ def main(argv=None):
         # print('container: %s:%s %s' % (key, type(value), value))
         s = {
             'name': lambda: {'attr':'name', 'param':'--name'},
+            'port-list': lambda: {'attr': 'port_list', 'param': '-p'},
             'volume-list': lambda: {'attr': 'volume_list', 'param': '-v'},
             'pseudo-tty': lambda: {'attr': 'pseudo_tty', 'param': '-t'},
             'daemon': lambda: {'attr': 'daemon', 'param': '-d'},
@@ -259,8 +261,8 @@ def main(argv=None):
             'environment-list': lambda: {'attr': 'environment_list', 'param': '-e'},
             'hostname': lambda: {'attr': 'hostname', 'param': '-h'},
             'cmd': lambda: {'attr': 'cmd', 'param': ''}
-        }.get(key, lambda : print('container:' + key + ' is not supported yet'))()
-        if s == None:
+        }.get(key, lambda: print('container:' + key + ' is not supported yet'))()
+        if s is None:
             return 1
 
         if type(raw_value) is comments.CommentedSeq:

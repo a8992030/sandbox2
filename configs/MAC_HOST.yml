@@ -7,13 +7,14 @@ container:
   name: SBX_%DATE
   # Usage: %DATE will represent 'date'
 
-  #port-list:
-  # Usage:   hostPort:containerPort | containerPort
+  port-list:
+    - 5958:5901
+  # Usage:   hostPort:containerPort
   # Explain: Both hostPort and containerPort can be specified as a
   #          range of ports. When specifying ranges for both, the
   #          number of container ports in the range must match the
   #          number of host ports in the range, for example:
-  #          port-list:5/1
+  #          port-list:
   #          -22:22
   #          -1234-1236:1234-1236/tcp
 

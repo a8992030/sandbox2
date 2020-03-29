@@ -9,6 +9,7 @@ class ContainerConfig:
 
     class Container:
         name = ''
+        port_list = ''
         volume_list = ''
         pseudo_tty = ''
         daemon = ''
